@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="email_field_label">Username</string>
+    <string name="password_field_label">Password</string>
+
+    <string name="login_button_label">Login</string>
+    <string name="login_title">Welcome to </string>
+    <string name="login_description">Login with your given account details.</string>
+</resources>

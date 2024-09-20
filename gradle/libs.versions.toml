@@ -1,0 +1,108 @@
+[versions]
+# Plugins
+agp = "8.3.2"
+
+# Libraries
+androidx-activityCompose = "1.9.2"
+compose-plugin = "1.6.10"
+junit = "4.13.2"
+kotlin = "2.0.0"
+serialization = "1.7.0"
+lifecycle-viewmodel = "2.8.2"
+navigation-compose = "2.8.0-alpha10"
+settings-multiplatform = "1.1.1"
+logging-kermit = "2.0.4"
+ktor = "3.0.0-wasm2"
+# Don't use wasm-alpha2 version of Koin, it will break the iOS build
+koin-bom = "3.6.0-Beta4"
+coil = "3.0.0-alpha10"
+okio = "3.9.0"
+kotlinx-datetime = "0.6.0"
+paging-appcache = "3.3.0-alpha02-0.5.1"
+ktlinter = "4.4.1"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+compose-gradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose-plugin" }
+ktlinter-gradlePlugin = { group = "org.jmailen.gradle", name = "kotlinter-gradle", version.ref = "ktlinter" }
+
+
+# Serialization
+jetbrains-kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+
+# ViewModel
+lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel" }
+
+# Navigation
+navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
+
+# Persistence
+storage-settings-multiplatform = { group = "com.russhwolf", name = "multiplatform-settings-no-arg", version.ref = "settings-multiplatform" }
+
+# Logging
+logging-kermit = { group = "co.touchlab", name = "kermit", version.ref = "logging-kermit" }
+
+# Networking
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
+ktor-client-js = { group = "io.ktor", name = "ktor-client-js", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+# Dependency injection
+koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin-bom" }
+koin-core = { group = "io.insert-koin", name = "koin-core" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version="1.2.0-Beta4" }
+koin-coroutines = { group = "io.insert-koin", name = "koin-core-coroutines" }
+koin-android = { group = "io.insert-koin", name = "koin-android" }
+
+# Coil image loading
+coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-ktor2", version.ref = "coil" }
+
+# File handling
+okio-core = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
+
+# Datetime
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
+
+paging-appcache-common = { group = "app.cash.paging", name = "paging-common", version.ref = "paging-appcache" }
+paging-appcache-comopose = { group = "app.cash.paging", name = "paging-compose-common", version.ref = "paging-appcache" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinter = { id = "org.jmailen.kotlinter", version.ref = "ktlinter" }
+
+
+[bundles]
+coil = [
+    "coil",
+    "coil-compose",
+    "coil-network"
+]
+
+ktor-common = [
+    "ktor-client-core",
+    "ktor-client-json",
+    "ktor-client-logging",
+    "ktor-client-auth",
+    "ktor-client-content-negotiation",
+    "ktor-serialization-kotlinx-json"
+]

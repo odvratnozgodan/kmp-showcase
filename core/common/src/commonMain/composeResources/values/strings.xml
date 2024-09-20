@@ -1,0 +1,4 @@
+<resources>
+    <string name="save_label">Save</string>
+    <string name="session_expired">Session expired, please log in again.</string>
+</resources>
