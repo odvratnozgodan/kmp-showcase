@@ -17,6 +17,7 @@ This project showcases a Kotlin Multiplatform mobile application with Compose Mu
 
 This project is organized into the following modules:
 
+* **:build-logic:** Contains the composite build plugins used to configure all other modules.
 * **:composeApp:** The main application module for each platform (Android, iOS, Web).
 * **:core:** Contains shared business logic, data models, and common utilities with the following submodules:
     *  `:core:authentication`
@@ -34,7 +35,7 @@ Each module has its own README.md file with a detailed explanation and a list of
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/<your-username>/Kotlin-Multiplatform-Project-Showcase.git`
+1. Clone the repository: `git clone https://github.com/odvratnozgodan/kmp-showcase`
 2. Open the project in Android Studio.
 3. Build and run the app on your desired platform.
 
@@ -44,4 +45,4 @@ Contributions are welcome! Feel free to open issues and pull requests.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](https://opensource.org/license/mit).
