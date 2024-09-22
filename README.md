@@ -2,6 +2,10 @@
 
 This project showcases a Kotlin Multiplatform mobile application with Compose Multiplatform for UI. The application targets Android, iOS, and Web (wasmJs, experimental). It demonstrates how to structure a modularized Kotlin Multiplatform project and leverage modern tools and libraries.
 
+### WasmJs
+I have disabled it in this project because some dependencies don't yet support it or are still buggy(mostly because they are in alpha stage).
+You can enable it in the composite build plugin. Search for `configureWebApplication()` and uncomment it.  
+
 ## Key Features
 
 * **Modular Structure:** The project is divided into distinct modules for better organization, code reuse, and independent development.
@@ -11,6 +15,8 @@ This project showcases a Kotlin Multiplatform mobile application with Compose Mu
 * **Koin:** [Koin](https://insert-koin.io/) A lightweight dependency injection framework for Kotlin.
 * **Coil:** [Coil](https://coil-kt.github.io/coil/) An image loading library for Compose.
 * **Paging:** [Paging](https://developer.android.com/topic/libraries/architecture/paging) A library for loading and displaying large datasets efficiently.
+* **Compose Navigation** [Compose Multiplatform Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html) A library used for navigation between the screens. **Doesn't support WasmJs**
+* **Okio** [Okio](https://square.github.io/okio/) A library used for file handling and data storage.
 * **Custom Composite Build Plugins:** Reduce boilerplate and enforce consistency with custom Gradle plugins.
 
 ## Modules
@@ -32,6 +38,10 @@ This project is organized into the following modules:
     * `:feature:home`
 
 Each module has its own README.md file with a detailed explanation and a list of dependencies.
+
+## Data used
+
+Used [https://dummyjson.com/](https://dummyjson.com/) for mocking the API endpoints.
 
 ## Getting Started
 
