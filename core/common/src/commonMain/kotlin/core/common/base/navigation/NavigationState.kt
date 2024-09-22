@@ -13,7 +13,6 @@ sealed class NavigationState : NavigationHandler {
     class NavigateToDestination(
         private val destination: ScreenNavigationRoute,
         private val clearBackStack: Boolean = false,
-        private val animateTransition: Boolean = true,
         private val launchSingleTop: Boolean = false,
     ) : NavigationState() {
 
@@ -23,10 +22,10 @@ sealed class NavigationState : NavigationHandler {
                     launchSingleTop = this@NavigateToDestination.launchSingleTop
                 }
             } else {
-                // TODO: Check if this works
                 val popToDestination = navController.currentBackStack.value
-                    .firstOrNull { it.destination.navigatorName == "fragment" }
-                    ?.destination
+                    .firstOrNull {
+                        it.destination.navigatorName == "composable"
+                    }?.destination
                 navOptions {
                     launchSingleTop = true
                     restoreState = false
