@@ -8,7 +8,7 @@ import recipes.domain.usecase.RecipesUseCase
 
 class RecipeDetailsViewModel(private val recipes: RecipesUseCase) : BaseViewModel<RecipeDetailsEvent, RecipeDetailsViewState>() {
 
-    override fun refreshData() {
+    override fun loadData() {
         viewModelScope.launch {
             viewState.value.recipeId?.let {
                 getRecipe(it)

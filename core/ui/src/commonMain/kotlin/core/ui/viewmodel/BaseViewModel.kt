@@ -5,7 +5,10 @@ import androidx.lifecycle.viewModelScope
 import core.common.base.navigation.NavigationState
 import core.common.base.usecese.MainEventsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -19,6 +22,12 @@ abstract class BaseViewModel<E : ViewEvent, S : ViewState> :
 
     private val _viewState = MutableStateFlow(this.getInitialViewState())
     val viewState: StateFlow<S> = _viewState
+        .onStart { loadData() }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = this.getInitialViewState()
+        )
 
     fun navigate(navigationState: NavigationState) {
         viewModelScope.launch {
@@ -42,8 +51,13 @@ abstract class BaseViewModel<E : ViewEvent, S : ViewState> :
     }
 
     /**
-     * Method used for refreshing the data. It should be called when the Fragment.onResume() is called
+     * Method used for loading the data.
+     * This can be triggered in two ways:
+     * 1. When a subscriber starts observing the `viewState` flow with `collectAsStateWithLifecycle()`.
+     * The timeout is set to `5000L` milliseconds. So if the app goes to the background longer then 5
+     * seconds and then it is resumed the `.onStart { loadData() }` will be called thus loading the data.
+     * 2. Manually from the viewModel
      * */
-    open fun refreshData() {
+    protected open fun loadData() {
     }
 }

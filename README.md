@@ -52,8 +52,8 @@ Used [https://dummyjson.com/](https://dummyjson.com/) for mocking the API endpoi
 ## TODO
 - [ ] Implement iOS theme
 - [ ] Upgrade Koin to 4.0
-- [ ] Better handling of data reloading and application background state
-- 
+- [x] Better handling of data reloading and application background state
+
 
 ## Contributing
 
