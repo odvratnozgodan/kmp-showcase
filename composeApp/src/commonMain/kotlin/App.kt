@@ -42,11 +42,6 @@ fun AppNavigation(viewModel: AppViewModel = koinInject<AppViewModel>()) {
         val lifecycleOwner = LocalLifecycleOwner.current
         LaunchedEffect(Unit) {
             lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.refreshData()
-            }
-        }
-        LaunchedEffect(Unit) {
-            lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.navigation.collect {
                     it.navigate(navController)
                 }

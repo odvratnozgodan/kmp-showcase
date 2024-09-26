@@ -13,7 +13,7 @@ class HomeViewModel(private val userProfile: UserProfile, private val recipesUse
 
     val recipesPager = recipesUseCase.getRecipes()
 
-    override fun refreshData() {
+    override fun loadData() {
         viewModelScope.launch {
             getUserProfile()
         }

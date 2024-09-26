@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 data class AuthenticationResult(
     @SerialName("accessToken")
     val token: String,
-    val refreshToken: String
+    val refreshToken: String,
 )
