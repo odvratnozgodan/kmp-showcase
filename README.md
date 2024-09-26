@@ -49,6 +49,12 @@ Used [https://dummyjson.com/](https://dummyjson.com/) for mocking the API endpoi
 2. Open the project in Android Studio.
 3. Build and run the app on your desired platform.
 
+## TODO
+- [ ] Implement iOS theme
+- [ ] Upgrade Koin to 4.0
+- [ ] Better handling of data reloading and application background state
+- 
+
 ## Contributing
 
 Contributions are welcome! Feel free to open issues and pull requests.
