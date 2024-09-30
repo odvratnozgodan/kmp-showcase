@@ -16,6 +16,7 @@ This module uses the following dependencies:
 * **[Ktor Client](https://ktor.io/):** For making network requests.
 * **[Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization):** For serializing and deserializing network data.
 * **[Kotlinx Coroutines](https://kotlinlang.org/docs/coroutines-overview.html):** For managing asynchronous network operations.
+* * **Inspektify** [Inspektify](https://github.com/BVantur/inspektify?tab=readme-ov-file#features) Used for inspecting network traffic of the app
 * **`:core:common`:** For common utilities and helper functions.
 * **`:core:datastore`:** For storing and retrieving network-related data (e.g., API keys, tokens).
 

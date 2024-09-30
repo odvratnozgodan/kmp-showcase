@@ -17,6 +17,7 @@ You can enable it in the composite build plugin. Search for `configureWebApplica
 * **Paging:** [Paging](https://developer.android.com/topic/libraries/architecture/paging) A library for loading and displaying large datasets efficiently.
 * **Compose Navigation** [Compose Multiplatform Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html) A library used for navigation between the screens. **Doesn't support WasmJs**
 * **Okio** [Okio](https://square.github.io/okio/) A library used for file handling and data storage.
+* **Inspektify** [Inspektify](https://github.com/BVantur/inspektify?tab=readme-ov-file#features) Library used for inspecting network traffic of the app
 * **Custom Composite Build Plugins:** Reduce boilerplate and enforce consistency with custom Gradle plugins.
 
 ## Modules
