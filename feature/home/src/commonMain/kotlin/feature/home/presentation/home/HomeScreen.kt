@@ -10,14 +10,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -59,21 +56,13 @@ fun HomeScreenContent(viewState: HomeViewState, recipesPager: LazyPagingItems<Re
         }
     ) {
         val state = rememberPullToRefreshState()
-        LaunchedEffect(recipesPager.loadState.refresh) {
-            // fetch something
-            if (recipesPager.loadState.refresh is LoadState.NotLoading) {
-                state.endRefresh()
-            }
-        }
-        if (state.isRefreshing) {
-            LaunchedEffect(true) {
+        PullToRefreshBox(
+            modifier = Modifier
+                .padding(it),
+            onRefresh = {
                 recipesPager.refresh()
-            }
-        }
-        Box(
-            Modifier
-                .padding(it)
-                .nestedScroll(state.nestedScrollConnection)
+            },
+            isRefreshing = recipesPager.loadState.refresh is LoadState.Loading
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -117,7 +106,6 @@ fun HomeScreenContent(viewState: HomeViewState, recipesPager: LazyPagingItems<Re
                     }
                 }
             }
-            PullToRefreshContainer(modifier = Modifier.align(Alignment.TopCenter), state = state)
         }
     }
 }

@@ -1,5 +1,6 @@
 package core.network.di
 
+import core.common.utils.isDebug
 import core.network.NetworkConfigs
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -15,6 +16,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import sp.bvantur.inspektify.ktor.InspektifyKtor
 
 val coreModuleNetwork = module {
     factory(named("baseHttpClient")) {
@@ -27,6 +29,9 @@ val coreModuleNetwork = module {
                 }
                 level = LogLevel.ALL
                 sanitizeHeader { header -> header == HttpHeaders.Authorization }
+            }
+            if (isDebug()) {
+                install(InspektifyKtor)
             }
             install(ContentNegotiation) {
                 json(

@@ -4,7 +4,7 @@ agp = "8.3.2"
 
 # Libraries
 androidx-activityCompose = "1.9.2"
-compose-plugin = "1.6.11"
+compose-plugin = "1.7.0-beta02"
 junit = "4.13.2"
 kotlin = "2.0.20"
 serialization = "1.7.0"
@@ -12,7 +12,7 @@ lifecycle-viewmodel = "2.8.2"
 navigation-compose = "2.8.0-alpha08"
 settings-multiplatform = "1.1.1"
 logging-kermit = "2.0.4"
-ktor = "3.0.0-wasm2"
+ktor = "3.0.0-rc-1"
 # Don't use wasm-alpha2 version of Koin, it will break the iOS build
 koin-bom = "3.6.0-Beta4"
 coil = "3.0.0-alpha10"
@@ -20,6 +20,7 @@ okio = "3.9.0"
 kotlinx-datetime = "0.6.0"
 paging-appcache = "3.3.0-alpha02-0.5.1"
 ktlinter = "4.4.1"
+inspektify = "1.0.0-beta01"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -78,6 +79,10 @@ okio-core = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 # Datetime
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
+# Network inspection
+inspektify = { group = "io.github.bvantur", name = "inspektify-ktor3", version.ref = "inspektify" }
+
+# Paging
 paging-appcache-common = { group = "app.cash.paging", name = "paging-common", version.ref = "paging-appcache" }
 paging-appcache-comopose = { group = "app.cash.paging", name = "paging-compose-common", version.ref = "paging-appcache" }
 

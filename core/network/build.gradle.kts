@@ -13,6 +13,7 @@ kotlin {
             api(projects.core.common)
             api(projects.core.datastore)
             api(libs.bundles.ktor.common)
+            api(libs.inspektify)
         }
         androidMain.dependencies {
             api(libs.ktor.client.okhttp)
