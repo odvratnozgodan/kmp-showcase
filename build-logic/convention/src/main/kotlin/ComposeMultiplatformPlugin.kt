@@ -20,7 +20,6 @@ class ComposeMultiplatformPlugin : Plugin<Project> {
             apply("org.jetbrains.compose")
             apply("org.jetbrains.kotlin.plugin.compose")
             apply("org.jetbrains.kotlin.plugin.serialization")
-            apply("org.jmailen.kotlinter")
         }
         val compose = extensions.getByType(ComposeExtension::class.java).dependencies
         extensions.configure<KotlinMultiplatformExtension> {

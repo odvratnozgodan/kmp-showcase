@@ -67,6 +67,7 @@ private fun ListItemContent(recipe: Recipe) {
                     imageIsLoading = false
                 },
                 onError = {
+                    println("Error loading ${recipe.image}. Error: ${it.result}")
                     imageIsLoading = false
                 },
                 modifier = modifier,

@@ -20,17 +20,39 @@ import feature.authentication.navigation.addAuthenticationGraph
 import feature.home.di.featureModuleHome
 import feature.home.navigation.addHomeGraph
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
-import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.context.startKoin
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import recipes.di.coreModuleRecipes
+
+fun appModule() = listOf(
+    coreModuleCommon,
+    coreModuleUi,
+    coreModuleDatastore,
+    coreModuleNetwork,
+    coreModuleAuthentication,
+    coreModuleUser,
+    coreModuleRecipes,
+    featureModuleAuthentication,
+    featureModuleHome,
+    module {
+        viewModelOf(::AppViewModel)
+    }
+)
 
 @Composable
 @Preview
 fun App() {
-    initKoin()
-    AppNavigation()
+    KoinApplication(
+        application = {
+            configurePlatform()
+            modules(appModule())
+        }
+    ) {
+        AppNavigation()
+    }
 }
 
 @Composable
@@ -62,23 +84,8 @@ fun AppNavigation(viewModel: AppViewModel = koinInject<AppViewModel>()) {
 }
 
 fun initKoin() {
-    fun appModule() = listOf(
-        coreModuleCommon,
-        coreModuleUi,
-        coreModuleDatastore,
-        coreModuleNetwork,
-        coreModuleAuthentication,
-        coreModuleUser,
-        coreModuleRecipes,
-        featureModuleAuthentication,
-        featureModuleHome,
-        module {
-            viewModelOf(::AppViewModel)
-        }
-    )
 
     startKoin {
-        configurePlatform()
-        modules(appModule())
+
     }
 }

@@ -54,7 +54,5 @@ val coreModuleNetwork = module {
 
     single(named("defaultHttpClient")) {
         get<HttpClient>(qualifier = named("baseHttpClient"))
-            .config {
-            }
     }
 }
