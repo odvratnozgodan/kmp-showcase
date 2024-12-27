@@ -1,11 +1,10 @@
 package com.kmpshowcase.buildlogic
 
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
 internal fun KotlinMultiplatformExtension.configureWebApplication() {
-    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
         browser {
@@ -25,8 +24,8 @@ internal fun KotlinMultiplatformExtension.configureWebApplication() {
     }
 }
 
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
 internal fun KotlinMultiplatformExtension.configureWebLibrary() {
-    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = project.name
         browser()

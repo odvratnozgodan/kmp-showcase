@@ -16,7 +16,6 @@ class MultiplatformPlugin : Plugin<Project> {
             apply("com.android.library")
             apply("org.jetbrains.kotlin.multiplatform")
             apply("org.jetbrains.kotlin.plugin.serialization")
-            apply("org.jmailen.kotlinter")
         }
 
         extensions.configure<KotlinMultiplatformExtension> {

@@ -3,7 +3,6 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
-        mavenLocal()
         includeBuild("build-logic")
         google {
             mavenContent {
@@ -19,8 +18,6 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
-        mavenLocal()
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")
@@ -29,7 +26,6 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     }
 }
 
