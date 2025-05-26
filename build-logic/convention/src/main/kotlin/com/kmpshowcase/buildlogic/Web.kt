@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
 internal fun KotlinMultiplatformExtension.configureWebApplication() {
     wasmJs {
-        moduleName = "composeApp"
+        outputModuleName.set("composeApp")
         browser {
             commonWebpackConfig {
                 outputFileName = "composeApp.js"
@@ -27,7 +27,7 @@ internal fun KotlinMultiplatformExtension.configureWebApplication() {
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
 internal fun KotlinMultiplatformExtension.configureWebLibrary() {
     wasmJs {
-        moduleName = project.name
+        outputModuleName.set(project.name)
         browser()
     }
 }

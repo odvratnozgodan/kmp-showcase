@@ -60,11 +60,13 @@ internal fun KotlinMultiplatformExtension.configureMultiplatform(libs: Libraries
             }
         }
 
-        val wasmJsMain by creating {
+        // FIXME: This target was removed because of poor/missing wasmJs support from various dependencies
+        // FIXME: (eg. io.coil-kt.coil3.coil-network-ktor2, file handling, etc.)
+        /*val wasmJsMain by creating {
             dependencies {
                 // Dependencies go here
             }
-        }
+        }*/
 
         val iosX64Main by getting
         val iosArm64Main by getting
