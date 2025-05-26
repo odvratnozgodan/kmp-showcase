@@ -1,12 +1,12 @@
 [versions]
 # Plugins
-agp = "8.5.2"
+agp = "8.10.0"
 
 # Libraries
 androidx-activityCompose = "1.9.3"
-compose-plugin = "1.7.0"
+compose-plugin = "1.8.1"
 junit = "4.13.2"
-kotlin = "2.1.0"
+kotlin = "2.1.21"
 serialization = "1.7.3"
 lifecycle-viewmodel = "2.8.3"
 navigation-compose = "2.8.0-alpha08"
