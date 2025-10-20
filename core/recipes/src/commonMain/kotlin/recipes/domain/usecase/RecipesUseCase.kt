@@ -1,6 +1,6 @@
 package recipes.domain.usecase
 
-import app.cash.paging.PagingData
+import androidx.paging.PagingData
 import core.common.base.usecese.BaseUseCase
 import core.common.base.usecese.DataResult
 import kotlinx.coroutines.flow.Flow

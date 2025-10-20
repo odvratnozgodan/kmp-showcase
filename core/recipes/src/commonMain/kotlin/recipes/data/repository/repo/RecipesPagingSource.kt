@@ -1,7 +1,7 @@
 package recipes.data.repository.repo
 
-import app.cash.paging.PagingSource
-import app.cash.paging.PagingState
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import core.common.base.usecese.DataResult
 import recipes.data.remote.datasource.RecipesDataSource
 import recipes.data.remote.model.Recipe

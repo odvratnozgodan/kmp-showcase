@@ -26,7 +26,7 @@ class ApplicationPlugin : Plugin<Project> {
             configureMultiplatform(libs)
             // FIXME: This target was removed because of poor/missing wasmJs support from various dependencies
             // FIXME: (eg. io.coil-kt.coil3.coil-network-ktor2, file handling, etc.)
-//            configureWebApplication()
+            configureWebApplication()
             configureCompose(compose, libs)
         }
         extensions.configure<AppExtension> {

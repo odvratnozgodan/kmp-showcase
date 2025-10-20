@@ -38,7 +38,7 @@ internal fun KotlinMultiplatformExtension.configureMultiplatform(libs: Libraries
                 api(libs.logging.kermit)
 
                 // Paging
-                implementation(libs.paging.appcache.common)
+                implementation(libs.androidx.paging.common)
 
             }
         }
