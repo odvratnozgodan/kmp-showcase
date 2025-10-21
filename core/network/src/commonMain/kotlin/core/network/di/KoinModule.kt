@@ -12,6 +12,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import core.network.platform.installPlatformPlugins
 
 val coreModuleNetwork = module {
     factory(named("baseHttpClient")) {
@@ -25,9 +26,9 @@ val coreModuleNetwork = module {
                 level = LogLevel.ALL
                 sanitizeHeader { header -> header == HttpHeaders.Authorization }
             }
-            if (isDebug()) {
-//                install(InspektifyKtor)
-            }
+            // Install platform-specific plugins only on Android and iOS
+            installPlatformPlugins(isDebug())
+
             install(ContentNegotiation) {
                 json(
                     Json {

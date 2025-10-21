@@ -29,7 +29,8 @@ internal fun KotlinMultiplatformExtension.configureMultiplatform(libs: Libraries
                 implementation(libs.jetbrains.kotlinx.serialization)
 
                 // ViewModel
-                implementation(libs.lifecycle.viewmodel)
+                implementation(libs.lifecycle.runtime.compose)
+                implementation(libs.lifecycle.viewmodel.compose)
 
                 // Navigation
                 api(libs.navigation.compose)

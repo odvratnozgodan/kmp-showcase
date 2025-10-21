@@ -17,8 +17,8 @@ ktor = "3.3.1"
 koin-bom = "4.1.1"
 coil = "3.3.0"
 okio = "3.16.2"
-kotlinx-datetime = "0.7.1"
-paging-appcache = "3.3.0-alpha02-0.5.1"
+# Dont use versions above this until inspektify fixes [this bug](https://github.com/BVantur/inspektify/issues/130)
+kotlinx-datetime = "0.6.2"
 androidx-paging-runtime = "3.3.6"
 androidx-paging = "3.4.0-alpha04"
 inspektify = "1.0.0-beta09"
@@ -38,7 +38,8 @@ compose-gradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle
 jetbrains-kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 
 # ViewModel
-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel" }
+lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle-viewmodel" }
+lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel" }
 
 # Navigation
 navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
@@ -79,7 +80,7 @@ okio-core = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
 # Network inspection
-#inspektify = { group = "io.github.bvantur", name = "inspektify-ktor3", version.ref = "inspektify" }
+inspektify = { group = "io.github.bvantur", name = "inspektify-ktor3", version.ref = "inspektify" }
 
 # Paging
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "androidx-paging-runtime" }

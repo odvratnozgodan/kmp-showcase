@@ -13,19 +13,21 @@ kotlin {
             api(projects.core.common)
             api(projects.core.datastore)
             api(libs.bundles.ktor.common)
-//            api(libs.inspektify)
+            api(libs.kotlinx.datetime)
         }
         androidMain.dependencies {
             api(libs.ktor.client.okhttp)
+            api(libs.inspektify)
         }
         iosMain.dependencies {
             api(libs.ktor.client.darwin)
+            api(libs.inspektify)
         }
         // FIXME: This target was removed because of poor/missing wasmJs support from various dependencies
         // FIXME: (eg. io.coil-kt.coil3.coil-network-ktor2, file handling, etc.)
-        /*wasmJsMain.dependencies {
+        wasmJsMain.dependencies {
             api(libs.ktor.client.js)
-        }*/
+        }
     }
 }
 
