@@ -40,7 +40,7 @@ internal fun KotlinMultiplatformExtension.configureCompose(
                 api(libs.navigation.compose)
 
                 // Paging
-                implementation(libs.paging.appcache.comopose)
+                implementation(libs.androidx.paging.compose)
             }
         }
         val commonTest by getting {

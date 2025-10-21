@@ -2,21 +2,17 @@ package core.network.di
 
 import core.common.utils.isDebug
 import core.network.NetworkConfigs
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logger
-import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.header
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.URLProtocol
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.client.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.logging.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import sp.bvantur.inspektify.ktor.InspektifyKtor
+import core.network.platform.installPlatformPlugins
 
 val coreModuleNetwork = module {
     factory(named("baseHttpClient")) {
@@ -30,9 +26,9 @@ val coreModuleNetwork = module {
                 level = LogLevel.ALL
                 sanitizeHeader { header -> header == HttpHeaders.Authorization }
             }
-            if (isDebug()) {
-                install(InspektifyKtor)
-            }
+            // Install platform-specific plugins only on Android and iOS
+            installPlatformPlugins(isDebug())
+
             install(ContentNegotiation) {
                 json(
                     Json {

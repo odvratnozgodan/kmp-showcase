@@ -1,25 +1,27 @@
 [versions]
 # Plugins
-agp = "8.5.2"
+agp = "8.11.0"
 
 # Libraries
-androidx-activityCompose = "1.9.3"
-compose-plugin = "1.7.0"
+androidx-activityCompose = "1.11.0"
+compose-plugin = "1.9.1"
 junit = "4.13.2"
-kotlin = "2.1.0"
-serialization = "1.7.3"
-lifecycle-viewmodel = "2.8.3"
-navigation-compose = "2.8.0-alpha08"
-settings-multiplatform = "1.1.1"
-logging-kermit = "2.0.4"
-ktor = "3.0.2"
+kotlin = "2.2.20"
+serialization = "1.9.0"
+lifecycle-viewmodel = "2.9.5"
+navigation-compose = "2.9.1"
+settings-multiplatform = "1.3.0"
+logging-kermit = "2.0.8"
+ktor = "3.3.1"
 # Don't use wasm-alpha2 version of Koin, it will break the iOS build
-koin-bom = "4.0.1"
-coil = "3.0.4"
-okio = "3.9.1"
-kotlinx-datetime = "0.6.1"
-paging-appcache = "3.3.0-alpha02-0.5.1"
-inspektify = "1.0.0-beta08"
+koin-bom = "4.1.1"
+coil = "3.3.0"
+okio = "3.16.2"
+# Dont use versions above this until inspektify fixes [this bug](https://github.com/BVantur/inspektify/issues/130)
+kotlinx-datetime = "0.6.2"
+androidx-paging-runtime = "3.3.6"
+androidx-paging = "3.4.0-alpha04"
+inspektify = "1.0.0-beta09"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -36,7 +38,8 @@ compose-gradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle
 jetbrains-kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 
 # ViewModel
-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel" }
+lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle-viewmodel" }
+lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel" }
 
 # Navigation
 navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
@@ -80,8 +83,9 @@ kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime",
 inspektify = { group = "io.github.bvantur", name = "inspektify-ktor3", version.ref = "inspektify" }
 
 # Paging
-paging-appcache-common = { group = "app.cash.paging", name = "paging-common", version.ref = "paging-appcache" }
-paging-appcache-comopose = { group = "app.cash.paging", name = "paging-compose-common", version.ref = "paging-appcache" }
+androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "androidx-paging-runtime" }
+androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "androidx-paging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidx-paging" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
