@@ -15,7 +15,7 @@ You can enable it in the composite build plugin. Search for `configureWebApplica
 * **Koin:** [Koin](https://insert-koin.io/) A lightweight dependency injection framework for Kotlin.
 * **Coil:** [Coil](https://coil-kt.github.io/coil/) An image loading library for Compose.
 * **Paging:** [Paging](https://developer.android.com/topic/libraries/architecture/paging) A library for loading and displaying large datasets efficiently.
-* **Compose Navigation** [Compose Multiplatform Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html) A library used for navigation between the screens. **Doesn't support WasmJs**
+* **Compose Navigation** [Compose Multiplatform Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html) A library used for navigation between the screens.
 * **Okio** [Okio](https://square.github.io/okio/) A library used for file handling and data storage.
 * **Inspektify** [Inspektify](https://github.com/BVantur/inspektify?tab=readme-ov-file#features) Library used for inspecting network traffic of the app
 * **Custom Composite Build Plugins:** Reduce boilerplate and enforce consistency with custom Gradle plugins.
@@ -52,8 +52,9 @@ Used [https://dummyjson.com/](https://dummyjson.com/) for mocking the API endpoi
 
 ## TODO
 - [ ] Implement iOS theme
-- [ ] Upgrade Koin to 4.0
+- [x] Upgrade Koin to 4.0
 - [x] Better handling of data reloading and application background state
+- [x] State machine for ViewModels
 
 
 ## Contributing

@@ -24,8 +24,6 @@ class ApplicationPlugin : Plugin<Project> {
         extensions.configure<KotlinMultiplatformExtension> {
             configureIOSApplication()
             configureMultiplatform(libs)
-            // FIXME: This target was removed because of poor/missing wasmJs support from various dependencies
-            // FIXME: (eg. io.coil-kt.coil3.coil-network-ktor2, file handling, etc.)
             configureWebApplication()
             configureCompose(compose, libs)
         }
