@@ -52,6 +52,7 @@ internal fun KotlinMultiplatformExtension.configureCompose(
         val androidMain by getting {
             dependencies {
                 implementation(compose.preview)
+                implementation(compose.uiTooling)
                 implementation(libs.androidx.activity.compose)
             }
         }

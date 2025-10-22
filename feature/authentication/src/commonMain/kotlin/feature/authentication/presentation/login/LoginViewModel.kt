@@ -3,64 +3,105 @@ package feature.authentication.presentation.login
 import androidx.lifecycle.viewModelScope
 import core.common.base.navigation.NavigationState
 import core.common.base.navigation.ScreenNavigationRoute
-import core.common.base.usecese.DataResult
-import core.ui.viewmodel.BaseViewModel
+import core.common.extensions.fold
+import core.ui.viewmodel.BaseStateViewModel
+import core.ui.viewmodel.state.StateMachine
+import core.ui.viewmodel.state.stateMachine
 import feature.authentication.domain.usecase.SignIn
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val signIn: SignIn) : BaseViewModel<LoginEvent, LoginViewState>() {
+class LoginViewModel(private val signIn: SignIn) : BaseStateViewModel<LoginEvent, LoginState, LoginViewState>() {
 
-    override fun handleEvent(event: LoginEvent) {
-        when (event) {
-            is LoginEvent.SignIn -> signInUser(event.email, event.password)
-            is LoginEvent.EmailChanged -> setState { copy(username = event.email, emailError = false, emailMessage = "") }
-            is LoginEvent.PasswordChanged -> setState { copy(password = event.password, passwordError = false, passwordMessage = "") }
-            is LoginEvent.OnReceivedArguments -> setState {
-                copy(
-                    sessionExpiredError = event.sessionExpired
-                )
-            }
-
-            LoginEvent.BottomSheetDismissed -> setState {
-                copy(
-                    sessionExpiredError = false
-                )
+    override val stateMachine = stateMachine<LoginState, LoginEvent>(
+        scope = viewModelScope,
+        initialState = LoginState.LoadingData,
+    ) {
+        sideEffect { state ->
+            println(">>> Current state: $state")
+        }
+        state<LoginState.LoadingData> {
+            onEvent<LoginEvent.OnReceivedArguments> { _, event ->
+                if (event.sessionExpired) LoginState.SessionExpired
+                else LoginState.WithData.PendingInput()
             }
         }
-    }
-
-    private fun signInUser(email: String, password: String) {
-        clearError()
-        setState { copy(loading = true) }
-        viewModelScope.launch {
-            when (val result = signIn.invoke(email, password)) {
-                is DataResult.Error -> {
-                    setState {
-                        copy(
-                            loading = false,
-                            emailError = true,
-                            emailMessage = result.errorBody.message ?: ""
+        state<LoginState.SessionExpired> {
+            onEvent<LoginEvent.BottomSheetDismissed> { _, _ ->
+                LoginState.WithData.PendingInput()
+            }
+        }
+        nestedState<LoginState.WithData> {
+            state<LoginState.WithData.PendingInput> {
+                onEvent<LoginEvent.EmailChanged> { state, event ->
+                    state.copy(email = event.email)
+                }
+                onEvent<LoginEvent.PasswordChanged> { state, event ->
+                    state.copy(password = event.password)
+                }
+                onEvent<LoginEvent.OnLogin> { event, _ ->
+                    LoginState.WithData.LoggingIn(event.email, event.password)
+                }
+            }
+            state<LoginState.WithData.LoggingIn> {
+                sideEffect { state ->
+                    signIn.invoke(state.email, state.password)
+                        .fold(
+                            onSuccess = LoginEvent::LoginSuccess,
+                            onFailure = LoginEvent::LoginFailed,
                         )
-                    }
+                        .also(::onEvent)
                 }
-
-                is DataResult.Success -> {
-                    setState { copy(loading = false) }
-                    navigateToHome()
+                onEvent<LoginEvent.LoginSuccess> { _, _ ->
+                    LoginState.LoginSuccess
                 }
+                onEvent<LoginEvent.LoginFailed> { state, event ->
+                    LoginState.WithData.LoginFailure(state.email, state.password, event.exception)
+                }
+            }
+            state<LoginState.WithData.LoginFailure> {
+                onEvent<LoginEvent.EmailChanged> { state, event ->
+                    LoginState.WithData.PendingInput(event.email, state.password)
+                }
+                onEvent<LoginEvent.PasswordChanged> { state, event ->
+                    LoginState.WithData.PendingInput(state.email, event.password)
+                }
+                onEvent<LoginEvent.OnLogin> { event, _ ->
+                    LoginState.WithData.LoggingIn(event.email, event.password)
+                }
+            }
+        }
+        state<LoginState.LoginSuccess> {
+            sideEffect {
+                navigateToHome()
             }
         }
     }
 
-    private fun clearError() {
-        setState {
-            copy(
-                emailError = false,
-                emailMessage = "",
-                passwordError = false,
-                passwordMessage = ""
-            )
-        }
+    override fun mapState(state: LoginState) = when (state) {
+        LoginState.LoadingData -> LoginViewState.Loading
+        LoginState.SessionExpired -> LoginViewState.LoginInput(sessionExpiredError = true)
+        LoginState.LoginSuccess -> LoginViewState.Success
+        is LoginState.WithData.LoggingIn -> LoginViewState.LoginInput(
+            loading = true,
+            username = state.email,
+            password = state.password,
+        )
+
+        is LoginState.WithData.LoginFailure -> LoginViewState.LoginInput(
+            username = state.email,
+            password = state.password,
+            emailErrorMessage = state.error.message,
+        )
+
+        is LoginState.WithData.PendingInput -> LoginViewState.LoginInput(
+            sessionExpiredError = false,
+            username = state.email,
+            password = state.password
+        )
     }
 
     private fun navigateToHome() {
@@ -74,5 +115,6 @@ class LoginViewModel(private val signIn: SignIn) : BaseViewModel<LoginEvent, Log
         }
     }
 
-    override fun getInitialViewState(): LoginViewState = LoginViewState()
+    override fun getInitialViewState(): LoginViewState = LoginViewState.Loading
+
 }

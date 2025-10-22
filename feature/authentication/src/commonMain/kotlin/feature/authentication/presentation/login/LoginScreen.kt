@@ -1,27 +1,29 @@
 package feature.authentication.presentation.login
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
@@ -31,6 +33,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import core.common.base.navigation.ScreenNavigationRoute
 import core.ui.components.CoreButton
 import core.ui.components.CoreTextField
@@ -48,9 +51,9 @@ import org.koin.compose.koinInject
 
 @Composable
 fun LoginScreen(login: ScreenNavigationRoute.Login, viewModel: LoginViewModel = koinInject<LoginViewModel>()) {
-    val state by viewModel.viewState.collectAsState()
+    val state by viewModel.viewState.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
-        viewModel.handleEvent(LoginEvent.OnReceivedArguments(login.sessionExpired))
+        viewModel.handleEvent(LoginEvent.OnReceivedArguments(true))
     }
     LoginScreenContent(
         state,
@@ -64,7 +67,6 @@ fun LoginScreenContent(viewState: LoginViewState, handleEvent: (event: LoginEven
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
                 .padding(paddingValues)
                 .padding(top = 16.dp)
                 .padding(horizontal = 8.dp)
@@ -79,14 +81,19 @@ fun LoginScreenContent(viewState: LoginViewState, handleEvent: (event: LoginEven
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(top = 8.dp)
             )
-
-            Inputs(viewState = viewState, handleEvent = handleEvent)
+            when(viewState){
+                LoginViewState.Loading -> Box(modifier = Modifier.fillMaxSize().fillMaxHeight()) {
+                    CircularProgressIndicator(modifier = Modifier.size(200.dp).align(Alignment.Center))
+                }
+                is LoginViewState.LoginInput -> Inputs(viewState = viewState, handleEvent = handleEvent)
+                LoginViewState.Success -> Unit
+            }
         }
     }
 }
 
 @Composable
-private fun Inputs(viewState: LoginViewState, handleEvent: (event: LoginEvent) -> Unit) {
+private fun Inputs(viewState: LoginViewState.LoginInput, handleEvent: (event: LoginEvent) -> Unit) {
     val focusManager = LocalFocusManager.current
 
     var passwordVisible by remember { mutableStateOf(false) }
@@ -105,7 +112,7 @@ private fun Inputs(viewState: LoginViewState, handleEvent: (event: LoginEvent) -
             imeAction = ImeAction.Next,
             capitalization = KeyboardCapitalization.None
         ),
-        readOnly = viewState.loading,
+        readOnly = viewState == LoginViewState.Loading,
         onValueChange = {
             handleEvent(LoginEvent.EmailChanged(it))
         }
@@ -124,7 +131,7 @@ private fun Inputs(viewState: LoginViewState, handleEvent: (event: LoginEvent) -
                 focusManager.clearFocus()
                 if (buttonEnabled) {
                     handleEvent(
-                        LoginEvent.SignIn(
+                        LoginEvent.OnLogin(
                             email = viewState.username,
                             password = viewState.password
                         )
@@ -156,10 +163,10 @@ private fun Inputs(viewState: LoginViewState, handleEvent: (event: LoginEvent) -
         showClearIcon = false
     )
 
-    if (viewState.emailError) {
+    viewState.emailErrorMessage?.let{
         Text(
             modifier = Modifier.fillMaxWidth().padding(top = 40.dp),
-            text = viewState.emailMessage,
+            text = it,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.error,
             textAlign = TextAlign.Center
@@ -184,7 +191,7 @@ private fun Inputs(viewState: LoginViewState, handleEvent: (event: LoginEvent) -
         onClick = {
             focusManager.clearFocus()
             handleEvent(
-                LoginEvent.SignIn(
+                LoginEvent.OnLogin(
                     email = viewState.username,
                     password = viewState.password
                 )
@@ -198,7 +205,18 @@ private fun Inputs(viewState: LoginViewState, handleEvent: (event: LoginEvent) -
 fun ScreenPreview() {
     TemplateAppTheme {
         LoginScreenContent(
-            viewState = LoginViewState(),
+            viewState = LoginViewState.LoginInput(),
+            handleEvent = {}
+        )
+    }
+}
+
+@ThemePreviews
+@Composable
+fun ScreenPreviewLoading() {
+    TemplateAppTheme {
+        LoginScreenContent(
+            viewState = LoginViewState.Loading,
             handleEvent = {}
         )
     }
@@ -209,7 +227,7 @@ fun ScreenPreview() {
 fun ScreenPreviewError() {
     TemplateAppTheme {
         LoginScreenContent(
-            viewState = LoginViewState(emailError = true, emailMessage = "Some error message"),
+            viewState = LoginViewState.LoginInput(emailErrorMessage = "Some error message"),
             handleEvent = {}
         )
     }

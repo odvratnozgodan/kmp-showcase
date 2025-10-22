@@ -21,7 +21,7 @@ abstract class BaseViewModel<E : ViewEvent, S : ViewState> :
     private val _mainEventsUseCase: MainEventsUseCase by inject()
 
     private val _viewState = MutableStateFlow(this.getInitialViewState())
-    val viewState: StateFlow<S> = _viewState
+    open val viewState: StateFlow<S> = _viewState
         .onStart { loadData() }
         .stateIn(
             scope = viewModelScope,
